@@ -1,4 +1,4 @@
-import '@/globals.css'
+import '@/globals.css';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BootstrappedApp } from './BootstrappedApp.tsx';
