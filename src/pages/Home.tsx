@@ -1,24 +1,21 @@
 import React from 'react';
-import ReactLogo from '@/assets/react.svg';
+import { RecommendedPostList } from '@/components/common/RecommendedPostList';
+import { MostLikedPostList } from '@/components/common/MostLikedPostList';
+import { Separator } from '@radix-ui/react-separator';
 
 const Home: React.FC = () => {
   return (
-    <div className='custom-container flex flex-wrap items-center gap-7 overflow-hidden pt-28'>
-      <div className='flex flex-[7.7] basis-85 flex-col gap-4'>
-        <h1 className='text-display-2xl font-bold'>DashBlog</h1>
-        <p className='text-display-md font-semibold'>
-          An open-source React blog app to create, edit, and manage posts with a
-          built-in dashboard.
-        </p>
+    <div className='flex flex-col gap-6 lg:flex-row'>
+      <div className='w-full'>
+        <h3 className='w-74.25 text-lg font-semibold'>Recommend For You</h3>
+        <RecommendedPostList />
       </div>
-      <div className='flex-[2.3] basis-85 p-20'>
-        <a
-          href='https://github.com/miftawidaya/dashblog-app'
-          target='_blank'
-          rel='noreferrer'
-        >
-          <ReactLogo className='h-full w-full object-cover' />
-        </a>
+      <div className='h-100 w-0.25 bg-neutral-300'>
+        <Separator orientation='vertical' />
+      </div>
+      <div className='w-74.25'>
+        <h3 className='text-lg font-semibold'>Most Liked</h3>
+        <MostLikedPostList />
       </div>
     </div>
   );
