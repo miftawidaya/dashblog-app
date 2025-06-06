@@ -20,7 +20,7 @@ export default function MainNavbar() {
   const { user, isAuthenticated, logout } = useAuthContext();
 
   const handleLogout = () => {
-    logout(); // logout dari context
+    logout();
     navigate('/auth/login');
   };
 

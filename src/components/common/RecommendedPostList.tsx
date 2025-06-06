@@ -3,6 +3,7 @@ import { PostCard } from '@/components/common/PostCard';
 import { Button } from '@/components/ui/button';
 import { useRecommendedPosts } from '@/utils/hooks/usePosts';
 import { Skeleton } from '../ui/skeleton';
+import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 
 export const RecommendedPostList: React.FC = () => {
   const [page, setPage] = useState(1);
@@ -24,7 +25,7 @@ export const RecommendedPostList: React.FC = () => {
 
   if (isLoading)
     return (
-      <div className='flex flex-col space-y-4'>
+      <div className='flex w-full flex-col space-y-4'>
         {[...Array(3)].map((_, i) => (
           <div key={i} className='w-full space-y-2'>
             <Skeleton className='h-5 w-3/4' />
@@ -40,9 +41,9 @@ export const RecommendedPostList: React.FC = () => {
 
   return (
     <div className='w-full'>
-      <div className='flex flex-col space-y-4 border-b pb-4'>
+      <div className='flex flex-col space-y-8 pb-8'>
         {data.data.map((post) => (
-          <PostCard
+          <PostCard className='md:border-b md:border-neutral-300 md:pb-8'
             key={post.id}
             id={post.id}
             thumbnail={post.imageUrl}
@@ -57,34 +58,32 @@ export const RecommendedPostList: React.FC = () => {
         ))}
       </div>
 
-      <div className='mt-4 flex items-center justify-center gap-2'>
-        <Button
-          variant='outline'
-          size='default'
+      <div className='flex items-center justify-center gap-2'>
+        <Button className='h-7'
+          variant='ghost'
           onClick={() => goToPage(page - 1)}
           disabled={page === 1}
         >
-          ← Previous
+          <ChevronLeftIcon className='h-4 w-4 md:h-6 md:w-6 mr-1' /> Previous
         </Button>
-
+        <div className='flex-center '>
         {Array.from({ length: totalPages }, (_, i) => (
-          <Button
+          <Button className='rounded-full aspect-square h-12 w-12'
             key={i + 1}
-            variant={page === i + 1 ? 'default' : 'outline'}
-            size='default'
+            variant={page === i + 1 ? 'default' : 'ghost'}
             onClick={() => goToPage(i + 1)}
           >
             {i + 1}
           </Button>
         ))}
+        </div>
 
         <Button
-          variant='outline'
-          size='default'
+          variant='ghost'
           onClick={() => goToPage(page + 1)}
           disabled={page === totalPages}
         >
-          Next →
+          Next <ChevronRightIcon className='h-4 w-4 md:h-6 md:w-6 ml-1' />
         </Button>
       </div>
     </div>

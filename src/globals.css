@@ -194,6 +194,16 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Global Scrollbar Hide */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+*::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
 body {
   @apply bg-base-white text-sm font-normal text-neutral-950;
 
@@ -203,7 +213,7 @@ body {
 @layer components {
   .custom-container {
     margin: 0 auto;
-    @apply max-w-360 px-30;
+    @apply md:max-w-360 px-4 md:px-30 ;
   }
 }
 

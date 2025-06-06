@@ -22,9 +22,9 @@ export const MostLikedPostList: React.FC = () => {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="flex flex-col gap-4 md:gap-5">
       {data.data.slice(0, 3).map((post) => (
-        <PostCard
+        <PostCard className='md:border-b md:border-neutral-300 md:pb-4 last:border-b-0'
           key={post.id}
           id={post.id}
           thumbnail={post.imageUrl}
