@@ -1,6 +1,10 @@
 import { useParams } from 'react-router-dom';
 import { usePostDetail } from '@/utils/hooks/usePosts';
 import { Skeleton } from '@/components/ui/skeleton';
+import PostInteractions from '@/components/common/PostInteractions';
+import PostAuthor from '@/components/common/PostAuthor';
+import PostTag from '@/components/common/PostTag';
+import { Separator } from '@radix-ui/react-separator';
 
 const PostDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -21,32 +25,38 @@ const PostDetailPage = () => {
   }
 
   return (
-    <article className='prose mx-auto'>
+    <article className='mx-auto flex flex-col gap-4 md:max-w-200'>
+      <h1 className='text-display-lg font-bold'>{post.title}</h1>
+
+      <div className='flex gap-2'>
+        {post.tags.map((tag) => (
+          <PostTag key={tag} tag={tag} />
+        ))}
+      </div>
+      <PostAuthor
+        name={post.author.name}
+        avatar={post.author.avatarUrl || ''}
+        date={post.createdAt}
+      />
+
+      <div className='w-full bg-neutral-300'>
+        <Separator className='h-px' />
+      </div>
+
+      <PostInteractions likes={post.likes} comments={post.comments} />
+
+      <div className='w-full bg-neutral-300'>
+        <Separator className='h-px' />
+      </div>
+
       <img
         src={post.imageUrl}
         alt={post.title}
         className='mb-6 w-full rounded-xl'
       />
-      <h1>{post.title}</h1>
-      <p className='text-muted-foreground mb-2 text-sm'>
-        {post.author.name} • {new Date(post.createdAt).toLocaleDateString()}
-      </p>
-      <div className='mb-4 flex gap-2'>
-        {post.tags.map((tag) => (
-          <span
-            key={tag}
-            className='bg-muted text-muted-foreground rounded px-2 py-1 text-xs font-medium'
-          >
-            #{tag}
-          </span>
-        ))}
-      </div>
-      <div className='text-base leading-relaxed whitespace-pre-line'>
+
+      <div className='text-body leading-relaxed whitespace-pre-line'>
         {post.content}
-      </div>
-      <div className='text-muted-foreground mt-8 flex gap-4 text-sm'>
-        <div>👍 {post.likes} Likes</div>
-        <div>💬 {post.comments} Comments</div>
       </div>
     </article>
   );

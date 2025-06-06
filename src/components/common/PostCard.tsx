@@ -1,11 +1,11 @@
 // src/components/PostCard.tsx
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import CommentIcon from '@/assets/icons/comment.svg';
-import LikeIcon from '@/assets/icons/like.svg';
+import PostInteractions from './PostInteractions';
+import PostAuthor from './PostAuthor';
+import PostTag from './PostTag';
 
 type PostCardProps = {
   id: number;
@@ -37,14 +37,6 @@ export const PostCard: React.FC<PostCardProps> = ({
   compact = false,
   className,
 }) => {
-  const formatDate = (date: string) => {
-    const dateObj = new Date(date);
-    const day = dateObj.getDate().toString().padStart(2, '0');
-    const month = dateObj.toLocaleString('en-US', { month: 'short' });
-    const year = dateObj.getFullYear();
-    return `${day} ${month} ${year}`;
-  };
-
   return (
     <Card className={cn('w-full transition', className)}>
       <Link to={`/posts/${id}`}>
@@ -77,12 +69,7 @@ export const PostCard: React.FC<PostCardProps> = ({
               {!compact && tags.length > 0 && (
                 <div className='flex flex-wrap gap-2 text-neutral-900'>
                   {tags.map((tag, i) => (
-                    <span
-                      key={i}
-                      className='flex-center h-7 rounded-md border border-neutral-300 px-2 text-xs'
-                    >
-                      {tag}
-                    </span>
+                    <PostTag key={i} tag={tag} />
                   ))}
                 </div>
               )}
@@ -91,31 +78,10 @@ export const PostCard: React.FC<PostCardProps> = ({
             </div>
 
             {/* Author */}
-            <div className='flex items-center gap-3 text-xs text-neutral-600 md:text-sm'>
-              <span className='flex items-center gap-2'>
-                <Avatar className='h-7.5 w-7.5 md:h-10 md:w-10'>
-                  <AvatarImage src={author.avatar} alt={author.name} />
-                  <AvatarFallback>{author.name[0]}</AvatarFallback>
-                </Avatar>
-                <span className='font-medium text-neutral-900'>
-                  {author.name}
-                </span>
-              </span>
-              <span className='text-neutral-400'>•</span>
-              <span className='text-neutral-600'>{formatDate(date)}</span>
-            </div>
+            <PostAuthor name={author.name} avatar={author.avatar} date={date} />
 
             {/* Interactions */}
-            <div className='flex items-center gap-4 text-xs text-neutral-600 md:text-sm'>
-              <div className='flex items-center gap-1.5 text-neutral-600'>
-                <LikeIcon/>
-                <span>{likes}</span>
-              </div>
-              <div className='flex items-center gap-1.5'>
-                <CommentIcon/>
-                <span>{comments}</span>
-              </div>
-            </div>
+            <PostInteractions likes={likes} comments={comments} />
           </div>
         </CardContent>
       </Link>
