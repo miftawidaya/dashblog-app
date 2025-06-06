@@ -108,11 +108,11 @@ export const PostCard: React.FC<PostCardProps> = ({
             {/* Interactions */}
             <div className='flex items-center gap-4 text-xs text-neutral-600 md:text-sm'>
               <div className='flex items-center gap-1.5 text-neutral-600'>
-                <LikeIcon className='h-4 w-4 md:h-6 md:w-6' />
+                <LikeIcon/>
                 <span>{likes}</span>
               </div>
               <div className='flex items-center gap-1.5'>
-                <CommentIcon className='h-4 w-4 md:h-6 md:w-6' />
+                <CommentIcon/>
                 <span>{comments}</span>
               </div>
             </div>
