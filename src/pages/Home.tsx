@@ -6,14 +6,14 @@ import { Separator } from '@radix-ui/react-separator';
 const Home: React.FC = () => {
   return (
     <div className='flex flex-col gap-6 lg:flex-row'>
-      <div className='w-full'>
+      <div className='flex-grow basis-0'>
         <h3 className='w-74.25 text-lg font-semibold'>Recommend For You</h3>
         <RecommendedPostList />
       </div>
-      <div className='h-100 w-0.25 bg-neutral-300'>
+      <div className='hidden w-px self-stretch bg-neutral-300 lg:block'>
         <Separator orientation='vertical' />
       </div>
-      <div className='w-74.25'>
+      <div className='w-74.25 shrink-0'>
         <h3 className='text-lg font-semibold'>Most Liked</h3>
         <MostLikedPostList />
       </div>

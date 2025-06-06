@@ -36,14 +36,9 @@ export const PostCard: React.FC<PostCardProps> = ({
   return (
     <Card className='mb-4 w-full transition'>
       <Link to={`/posts/${id}`}>
-        <CardContent className='flex cursor-pointer gap-4 p-4'>
+        <CardContent className='flex min-h-64.5 cursor-pointer gap-4'>
           {!compact && thumbnail && (
-            <div className='relative aspect-[340/258] w-full overflow-hidden rounded-xl'>
-              <img
-                src={'/assets/post-thumbnail.jpg'}
-                alt={'post-thumbnail'}
-                className='absolute top-0 left-0 h-full w-full object-cover'
-              />
+            <div className='relative w-[340px] overflow-hidden rounded-xl bg-neutral-700'>
               <img
                 src={thumbnail}
                 alt={title}
@@ -57,9 +52,12 @@ export const PostCard: React.FC<PostCardProps> = ({
                 {title}
               </h3>
               {!compact && tags.length > 0 && (
-                <div className='text-muted-foreground mb-1 text-xs'>
+                <div className='text-muted-foreground mb-1'>
                   {tags.map((tag, i) => (
-                    <span key={i} className='mr-1'>
+                    <span
+                      key={i}
+                      className='mr-1 rounded-md border border-neutral-300 px-2 py-1 text-xs'
+                    >
                       #{tag}
                     </span>
                   ))}
