@@ -25,7 +25,7 @@ const PostDetailPage = () => {
   }
 
   return (
-    <article className='mx-auto flex flex-col gap-4 md:max-w-200'>
+    <article className='mx-auto flex w-full max-w-200 flex-col gap-4 md:w-200'>
       <h1 className='text-display-lg font-bold'>{post.title}</h1>
 
       <div className='flex gap-2'>
@@ -48,13 +48,13 @@ const PostDetailPage = () => {
       <div className='w-full bg-neutral-300'>
         <Separator className='h-px' />
       </div>
-
-      <img
-        src={post.imageUrl}
-        alt={post.title}
-        className='mb-6 w-full rounded-xl'
-      />
-
+      <div className='mb-6 w-full overflow-hidden rounded-sm bg-neutral-700'>
+        <img
+          src={post.imageUrl}
+          alt={post.title}
+          className='h-151.75 w-full object-cover'
+        />
+      </div>
       <div className='text-body leading-relaxed whitespace-pre-line'>
         {post.content}
       </div>

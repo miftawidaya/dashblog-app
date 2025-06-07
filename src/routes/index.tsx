@@ -10,7 +10,7 @@ import Register from '@/pages/auth/RegisterPage';
 import NotFound from '@/pages/NotFound';
 import PostDetailPage from '@/pages/PostDetailPage';
 
-import ProtectedRoute from '@/components/common/ProtectedRoute';
+import ProtectedRoute from '@/components/routes/ProtectedRoute';
 
 export const routes: RouteObject[] = [
   {
