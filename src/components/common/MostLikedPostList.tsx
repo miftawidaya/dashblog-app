@@ -41,7 +41,7 @@ export const MostLikedPostList: React.FC = () => {
             tags={post.tags}
             summary={post.content.slice(0, 100)}
             author={{
-              name: authors[post.author.email]?.name,
+              name: post.author.name,
               avatar: avatar,
             }}
             date={new Date(post.createdAt).toLocaleDateString()}
