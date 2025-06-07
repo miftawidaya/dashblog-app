@@ -10,7 +10,7 @@ export const MostLikedPostList: React.FC = () => {
   const { data, isLoading, isError } = useMostLikedPosts();
 
   const emails = data?.data.map((post) => post.author.email) || [];
-  const { authors, isLoading: authorLoading } = useAuthors(emails);
+  const { authors } = useAuthors(emails);
 
   //   if (isLoading) return <p className="text-muted-foreground">Loading most liked posts...</p>;
   if (isError || !data)

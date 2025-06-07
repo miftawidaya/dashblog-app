@@ -13,7 +13,7 @@ export const RecommendedPostList: React.FC = () => {
 
   const { data, isLoading, isError } = useRecommendedPosts(page, limit);
   const emails = data?.data.map((post) => post.author.email) || [];
-  const { authors, isLoading: authorLoading } = useAuthors(emails);
+  const { authors } = useAuthors(emails);
 
   const totalPages = data ? Math.ceil(data.total / limit) : 1;
 
@@ -22,7 +22,7 @@ export const RecommendedPostList: React.FC = () => {
       setPage(newPage);
     }
   };
-  if (isLoading || authorLoading) return <p>Loading...</p>;
+
   // if (isLoading) return <p className="text-muted-foreground">Loading posts...</p>;
   if (isError || !data)
     return <p className='text-red-500'>Failed to load posts.</p>;
