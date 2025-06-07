@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import { Avatar, AvatarImage, AvatarFallback } from '@radix-ui/react-avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,11 +15,12 @@ import { Search, PencilLine, LogOut, User } from 'lucide-react';
 
 import AppLogo from '@/assets/app-logo.svg';
 import { useAuthContext } from '@/utils/contexts/AuthContext';
+import { API_BASE_URL } from '@/utils/apis/axios-with-config';
 
 export default function MainNavbar() {
   const navigate = useNavigate();
   const { user, isAuthenticated, logout } = useAuthContext();
-
+  const avatarImage = `${API_BASE_URL}${user?.avatarUrl}`;
   const handleLogout = () => {
     logout();
     navigate('/auth/login');
@@ -59,14 +61,17 @@ export default function MainNavbar() {
               </div>
               <DropdownMenu>
                 <DropdownMenuTrigger className='flex cursor-pointer items-center gap-3 font-medium'>
-                  <div className='flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-neutral-700'>
-                    <img
-                      src={user?.avatarUrl || '/assets/avatar.jpg'}
-                      alt='avatar'
+                  <Avatar className='flex-center h-10 w-10 overflow-hidden rounded-full bg-neutral-200'>
+                    <AvatarImage
+                      src={avatarImage}
+                      alt={user?.name || 'User'}
                       className='h-full w-full object-cover'
                     />
-                  </div>
-                  <span className='text-sm font-semibold'>{user?.name || 'User'}</span>
+                    <AvatarFallback>{user?.name[0]}</AvatarFallback>
+                  </Avatar>
+                  <span className='text-sm font-semibold'>
+                    {user?.name || 'User'}
+                  </span>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align='end'>
                   <DropdownMenuItem asChild>

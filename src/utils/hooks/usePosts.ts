@@ -9,15 +9,15 @@ import {
 import type { PaginatedPostResponse, Post } from '@/utils/types/post';
 
 export const useRecommendedPosts = (
-    page: number,
-    limit: number = 5
-  ): UseQueryResult<PaginatedPostResponse, Error> => {
-    return useQuery({
+  page: number,
+  limit: number = 5
+): UseQueryResult<PaginatedPostResponse, Error> => {
+  return useQuery({
     queryKey: ['recommendedPosts', page] as const,
     queryFn: () => fetchRecommendedPosts(page, limit),
     gcTime: 0,
   });
-  };
+};
 
 export const useMostLikedPosts = () => {
   return useQuery({

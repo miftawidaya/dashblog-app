@@ -1,10 +1,5 @@
 // src/context/AuthContext.tsx
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 
 import { getUserByEmail } from '@/utils/apis/user';
@@ -41,7 +36,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           setIsAuthenticated(true);
         })
         .catch(() => {
-          logout(); // bersihkan jika gagal
+          logout();
         });
     }
   }, []);
@@ -49,11 +44,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const login = async (email: string, password: string) => {
     try {
       const response = await apiLogin({ email, password });
-  
+
       if ('token' in response) {
         localStorage.setItem('token', response.token);
         localStorage.setItem('email', email);
-  
         const user = await getUserByEmail(email); // <== panggil manual
         setUser(user);
         setIsAuthenticated(true);
@@ -82,8 +76,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('email');
+    localStorage.clear();
     setUser(null);
     setIsAuthenticated(false);
   };

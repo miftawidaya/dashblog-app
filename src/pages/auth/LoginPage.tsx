@@ -42,7 +42,7 @@ export default function LoginPage() {
       const error = err as AxiosError;
       const message =
         (error.response?.data as { message?: string })?.message ||
-        'Login gagal. Silakan coba lagi.';
+        'Login failed. Please check your email or password.';
       toast.error(message);
     }
   };

@@ -5,10 +5,13 @@ import PostInteractions from '@/components/common/PostInteractions';
 import PostAuthor from '@/components/common/PostAuthor';
 import PostTag from '@/components/common/PostTag';
 import { Separator } from '@radix-ui/react-separator';
+import { API_BASE_URL } from '@/utils/apis/axios-with-config';
+import { useUser } from '@/utils/hooks/useUser';
 
 const PostDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const { data: post, isLoading, isError } = usePostDetail(id || '');
+  const { data: author } = useUser(post?.author.email || '');
 
   if (isLoading) {
     return (
@@ -35,7 +38,7 @@ const PostDetailPage = () => {
       </div>
       <PostAuthor
         name={post.author.name}
-        avatar={post.author.avatarUrl || ''}
+        avatar={`${API_BASE_URL}${author?.avatarUrl}`}
         date={post.createdAt}
       />
 

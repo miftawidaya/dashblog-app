@@ -1,8 +1,10 @@
 // src/utils/apis/axios-with-config.ts
 import axios, { type AxiosError, type InternalAxiosRequestConfig } from 'axios';
 
+export const API_BASE_URL = import.meta.env.VITE_BASE_API_URL;
+
 const axiosWithConfig = axios.create({
-  baseURL: import.meta.env.VITE_BASE_API_URL,
+  baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },

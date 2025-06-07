@@ -4,12 +4,17 @@ import { Button } from '@/components/ui/button';
 import { useRecommendedPosts } from '@/utils/hooks/usePosts';
 import { Skeleton } from '../ui/skeleton';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
+import { API_BASE_URL } from '@/utils/apis/axios-with-config';
+import { getUserByEmail } from '@/utils/apis/user';
+import { useAuthors } from '@/utils/hooks/useAuthors';
 
 export const RecommendedPostList: React.FC = () => {
   const [page, setPage] = useState(1);
   const limit = 5;
 
   const { data, isLoading, isError } = useRecommendedPosts(page, limit);
+  const emails = data?.data.map((post) => post.author.email) || [];
+  const { authors, isLoading: authorLoading } = useAuthors(emails);
 
   const totalPages = data ? Math.ceil(data.total / limit) : 1;
 
@@ -18,7 +23,7 @@ export const RecommendedPostList: React.FC = () => {
       setPage(newPage);
     }
   };
-
+  if (isLoading || authorLoading) return <p>Loading...</p>;
   // if (isLoading) return <p className="text-muted-foreground">Loading posts...</p>;
   if (isError || !data)
     return <p className='text-red-500'>Failed to load posts.</p>;
@@ -42,24 +47,28 @@ export const RecommendedPostList: React.FC = () => {
   return (
     <div className='w-full'>
       <div className='flex flex-col space-y-8 pb-8'>
-        {data.data.map((post) => (
-          <PostCard
-            className='md:border-b md:border-neutral-300 md:pb-8'
-            key={post.id}
-            id={post.id}
-            thumbnail={post.imageUrl}
-            title={post.title}
-            tags={post.tags}
-            summary={post.content.slice(0, 150)}
-            author={{
-              name: post.author.name,
-              avatar: post.author.avatarUrl || '',
-            }}
-            date={post.createdAt}
-            likes={post.likes}
-            comments={post.comments}
-          />
-        ))}
+        {data.data.map((post) => {
+          const avatarUrl = authors[post.author.email]?.avatarUrl;
+          const avatar = avatarUrl ? `${API_BASE_URL}${avatarUrl}` : '';
+          return (
+            <PostCard
+              className='md:border-b md:border-neutral-300 md:pb-8'
+              key={post.id}
+              id={post.id}
+              thumbnail={post.imageUrl}
+              title={post.title}
+              tags={post.tags}
+              summary={post.content.slice(0, 150)}
+              author={{
+                name: post.author.name,
+                avatar: avatar,
+              }}
+              date={post.createdAt}
+              likes={post.likes}
+              comments={post.comments}
+            />
+          );
+        })}
       </div>
 
       <div className='flex items-center justify-center gap-2'>

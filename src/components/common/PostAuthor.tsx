@@ -20,7 +20,11 @@ const PostAuthor: React.FC<PostAuthorProps> = ({ name, avatar, date }) => {
     <div className='flex items-center gap-3 text-xs text-neutral-600 md:text-sm'>
       <span className='flex-center items-center gap-2'>
         <Avatar className='flex-center h-7.5 w-7.5 overflow-hidden rounded-full bg-neutral-200 md:h-10 md:w-10'>
-          <AvatarImage src={avatar} alt={name} />
+          <AvatarImage
+            src={avatar}
+            alt={name}
+            className='h-full w-full object-cover'
+          />
           <AvatarFallback>{name[0]}</AvatarFallback>
         </Avatar>
         <span className='font-medium text-neutral-900'>{name}</span>
