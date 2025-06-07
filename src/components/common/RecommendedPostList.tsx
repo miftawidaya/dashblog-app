@@ -5,7 +5,6 @@ import { useRecommendedPosts } from '@/utils/hooks/usePosts';
 import { Skeleton } from '../ui/skeleton';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { API_BASE_URL } from '@/utils/apis/axios-with-config';
-import { getUserByEmail } from '@/utils/apis/user';
 import { useAuthors } from '@/utils/hooks/useAuthors';
 
 export const RecommendedPostList: React.FC = () => {
