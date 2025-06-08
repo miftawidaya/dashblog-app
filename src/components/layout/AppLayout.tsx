@@ -1,15 +1,14 @@
 // src/components/layout/AppLayout.tsx
 import { Outlet } from 'react-router-dom';
-import MainNavbar from '../navbar/MainNavbar';
+import Navbar from '../navbar/Navbar';
 import Footer from './Footer';
 
 export default function AppLayout() {
   return (
-    <div className='pt-15 md:pt-20 min-h-screen'>
+    <div className='min-h-screen pt-15 md:pt-20'>
+      <Navbar />
 
-      <MainNavbar />
-
-      <main className='custom-container min-h-[calc(100vh-10rem)] py-12 flex flex-wrap items-center w-full'>
+      <main className='custom-container flex min-h-[calc(100vh-10rem)] w-full flex-wrap items-center py-12'>
         <Outlet />
       </main>
 

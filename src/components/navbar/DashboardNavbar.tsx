@@ -40,14 +40,14 @@ export default function DashboardNavbar() {
               />
               {user.name}
             </DropdownMenuTrigger>
-            <DropdownMenuContent align='end'>
+            <DropdownMenuContent align='center'>
               <DropdownMenuItem asChild>
                 <Link to='/profile'>
-                  <User className='mr-2 h-4 w-4' /> Profile
+                  <User className='mr-2 h-5 w-5' /> Profile
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <LogOut className='mr-2 h-4 w-4' />
+                <LogOut className='mr-2 h-5 w-5' />
                 Logout
               </DropdownMenuItem>
             </DropdownMenuContent>
