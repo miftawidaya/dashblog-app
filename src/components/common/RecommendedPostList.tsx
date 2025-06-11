@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 import { PostCard } from '@/components/common/PostCard';
-import { Button } from '@/components/ui/button';
 import { useRecommendedPosts } from '@/utils/hooks/usePosts';
 import { Skeleton } from '../ui/skeleton';
-import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { API_BASE_URL } from '@/utils/apis/axios-with-config';
 import { useAuthors } from '@/utils/hooks/useAuthors';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
 
 export const RecommendedPostList: React.FC = () => {
   const [page, setPage] = useState(1);
@@ -23,7 +30,27 @@ export const RecommendedPostList: React.FC = () => {
     }
   };
 
-  // if (isLoading) return <p className="text-muted-foreground">Loading posts...</p>;
+  const getPageItems = () => {
+    const pages: (number | string)[] = [];
+
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      if (page <= 3) {
+        // Halaman awal: 1, 2, 3, ..., total
+        pages.push(1, 2, 3, '...', totalPages);
+      } else if (page >= totalPages - 2) {
+        // Halaman akhir: 1, ..., total-2, total-1, total
+        pages.push(1, '...', totalPages - 2, totalPages - 1, totalPages);
+      } else {
+        // Tengah: 1, ..., page-1, page, page+1, ..., total
+        pages.push(1, '...', page - 1, page, page + 1, '...', totalPages);
+      }
+    }
+
+    return pages;
+  };
+
   if (isError || !data)
     return <p className='text-red-500'>Failed to load posts.</p>;
 
@@ -70,36 +97,52 @@ export const RecommendedPostList: React.FC = () => {
         })}
       </div>
 
-      <div className='flex items-center justify-center gap-2'>
-        <Button
-          className='h-7'
-          variant='ghost'
-          onClick={() => goToPage(page - 1)}
-          disabled={page === 1}
-        >
-          <ChevronLeftIcon className='mr-1 h-4 w-4 md:h-6 md:w-6' /> Previous
-        </Button>
-        <div className='flex-center'>
-          {Array.from({ length: totalPages }, (_, i) => (
-            <Button
-              className='aspect-square h-12 w-12 rounded-full'
-              key={i + 1}
-              variant={page === i + 1 ? 'default' : 'ghost'}
-              onClick={() => goToPage(i + 1)}
-            >
-              {i + 1}
-            </Button>
-          ))}
-        </div>
+      <Pagination>
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious
+              href='#'
+              onClick={(e) => {
+                e.preventDefault();
+                goToPage(page - 1);
+              }}
+              className={page === 1 ? 'pointer-events-none opacity-50' : ''}
+            />
+          </PaginationItem>
 
-        <Button
-          variant='ghost'
-          onClick={() => goToPage(page + 1)}
-          disabled={page === totalPages}
-        >
-          Next <ChevronRightIcon className='ml-1 h-4 w-4 md:h-6 md:w-6' />
-        </Button>
-      </div>
+          {getPageItems().map((p, i) => (
+            <PaginationItem key={i}>
+              {p === '...' ? (
+                <PaginationEllipsis />
+              ) : (
+                <PaginationLink
+                  href='#'
+                  isActive={p === page}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (typeof p === 'number') goToPage(p);
+                  }}
+                >
+                  {p}
+                </PaginationLink>
+              )}
+            </PaginationItem>
+          ))}
+
+          <PaginationItem>
+            <PaginationNext
+              href='#'
+              onClick={(e) => {
+                e.preventDefault();
+                goToPage(page + 1);
+              }}
+              className={
+                page === totalPages ? 'pointer-events-none opacity-50' : ''
+              }
+            />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
     </div>
   );
 };
