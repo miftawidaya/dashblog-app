@@ -10,7 +10,7 @@ export default function DashboardLayout() {
         <DashboardNavbar />
       </header>
 
-      <main className='container mx-auto flex-grow p-4'>
+      <main className='custom-container mx-auto flex-grow p-4'>
         <Outlet />
       </main>
 

@@ -11,7 +11,11 @@ import { Separator } from '@/components/ui/separator';
 import { API_BASE_URL } from '@/utils/apis/axios-with-config';
 import { useAuthContext } from '@/utils/contexts/AuthContext';
 
-export default function UserMenu() {
+type UserMenuProps = {
+  compact?: boolean;
+};
+
+export default function UserMenu({ compact = false }: UserMenuProps) {
   const { user, logout } = useAuthContext();
   const navigate = useNavigate();
   const avatarImage = `${API_BASE_URL}${user?.avatarUrl}`;
@@ -22,14 +26,18 @@ export default function UserMenu() {
 
   return (
     <>
-      <Link
-        to='/dashboard/write'
-        className='text-primary-300 flex items-center gap-2 font-semibold underline underline-offset-3'
-      >
-        <PencilLine className='h-6 w-6' />
-        Write Post
-      </Link>
-      <Separator orientation='vertical' className='h-6 bg-neutral-300' />
+      {!compact && (
+        <>
+          <Link
+            to='/dashboard/write'
+            className='text-primary-300 flex items-center gap-2 font-semibold underline underline-offset-3'
+          >
+            <PencilLine className='h-6 w-6' />
+            Write Post
+          </Link>
+          <Separator orientation='vertical' className='h-6 bg-neutral-300' />
+        </>
+      )}
       <DropdownMenu>
         <DropdownMenuTrigger className='flex cursor-pointer items-center gap-3 font-medium'>
           <Avatar className='flex-center h-10 w-10 overflow-hidden rounded-full bg-neutral-200'>
@@ -40,7 +48,7 @@ export default function UserMenu() {
             />
             <AvatarFallback>{user?.name[0]}</AvatarFallback>
           </Avatar>
-          <span className='text-sm font-semibold'>
+          <span className='hidden text-sm font-semibold md:block'>
             {user?.name || 'User'}
           </span>
         </DropdownMenuTrigger>
