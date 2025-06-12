@@ -43,7 +43,7 @@ export const PostCard: React.FC<PostCardProps> = ({
         <CardContent className='flex cursor-pointer gap-4 md:gap-6'>
           {/* Thumbnail */}
           {!compact && thumbnail && (
-            <div className='relative w-[340px] overflow-hidden rounded-xl bg-neutral-700'>
+            <div className='relative hidden w-[340px] overflow-hidden rounded-xl bg-neutral-700 lg:block'>
               <img
                 src={thumbnail}
                 alt={title}

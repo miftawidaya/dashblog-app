@@ -8,11 +8,21 @@ import { Separator } from '@radix-ui/react-separator';
 import { API_BASE_URL } from '@/utils/apis/axios-with-config';
 import { useUser } from '@/utils/hooks/useUser';
 import CommentSection from '@/components/common/comments/CommentSection';
+import { useRecommendedPosts } from '@/utils/hooks/usePosts';
+import { useAuthors } from '@/utils/hooks/useAuthors';
+import { PostCard } from '@/components/common/PostCard';
 
 const PostDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const { data: post, isLoading, isError } = usePostDetail(id || '');
   const { data: author } = useUser(post?.author.email || '');
+
+  const page = 1;
+  const limit = 1;
+
+  const { data } = useRecommendedPosts(page, limit);
+  const emails = data?.data.map((post) => post.author.email) || [];
+  const { authors } = useAuthors(emails);
 
   if (isLoading) {
     return (
@@ -65,6 +75,35 @@ const PostDetailPage = () => {
         </div>
 
         <CommentSection postId={post.id.toString()} />
+
+        <div className='flex flex-col gap-4 border-t border-neutral-300 pt-4'>
+          <h2 className='md:text-display-xs mb-2 text-xl font-bold'>
+            Another Post
+          </h2>
+          <div className='md:pb-58'>
+            {data?.data.map((post) => {
+              const avatarUrl = authors[post.author.email]?.avatarUrl;
+              const avatar = avatarUrl ? `${API_BASE_URL}${avatarUrl}` : '';
+              return (
+                <PostCard
+                  key={post.id}
+                  id={post.id}
+                  thumbnail={post.imageUrl}
+                  title={post.title}
+                  tags={post.tags}
+                  summary={post.content.slice(0, 150)}
+                  author={{
+                    name: post.author.name,
+                    avatar: avatar,
+                  }}
+                  date={post.createdAt}
+                  likes={post.likes}
+                  comments={post.comments}
+                />
+              );
+            })}
+          </div>
+        </div>
       </article>
     </>
   );
