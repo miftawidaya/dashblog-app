@@ -20,7 +20,7 @@ export default function DashboardNavbar() {
           <span className='text-base font-semibold'>{pageTitle}</span>
         </div>
 
-        <UserMenu compact />
+        <UserMenu compact={true} />
       </nav>
     </header>
   );

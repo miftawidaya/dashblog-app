@@ -11,6 +11,7 @@ import NotFound from '@/pages/NotFound';
 import PostDetailPage from '@/pages/PostDetailPage';
 
 import ProtectedRoute from '@/components/routes/ProtectedRoute';
+import WritePost from '@/pages/dashboard/WritePost';
 
 export const routes: RouteObject[] = [
   {
@@ -37,7 +38,7 @@ export const routes: RouteObject[] = [
       {
         element: <DashboardLayout />,
         children: [
-          { path: 'write', element: <NotFound /> },
+          { path: 'write', element: <WritePost /> },
           { path: 'edit/:id', element: <NotFound /> },
           { path: 'profile', element: <NotFound /> },
         ],

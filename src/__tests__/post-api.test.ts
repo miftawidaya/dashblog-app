@@ -74,7 +74,7 @@ describe('Post API', () => {
     const mockResponse = { id: 5, ...newPost, likes: 0, comments: 0 };
     (axiosWithConfig.post as any).mockResolvedValueOnce({ data: mockResponse });
 
-    const data = await createPost(newPost);
+    const data = await createPost(newPost as any);
     expect(data).toEqual(mockResponse);
   });
 
@@ -86,7 +86,9 @@ describe('Post API', () => {
       imageUrl: '/uploads/updated.jpg',
     };
     const mockResponse = { id: 6, ...updatedPost };
-    (axiosWithConfig.patch as any).mockResolvedValueOnce({ data: mockResponse });
+    (axiosWithConfig.patch as any).mockResolvedValueOnce({
+      data: mockResponse,
+    });
 
     const data = await updatePost(6, updatedPost);
     expect(data).toEqual(mockResponse);
@@ -102,7 +104,9 @@ describe('Post API', () => {
 
   it('should delete a post by ID', async () => {
     const mockResponse = { success: true };
-    (axiosWithConfig.delete as any).mockResolvedValueOnce({ data: mockResponse });
+    (axiosWithConfig.delete as any).mockResolvedValueOnce({
+      data: mockResponse,
+    });
 
     const data = await deletePost(8);
     expect(data).toEqual(mockResponse);

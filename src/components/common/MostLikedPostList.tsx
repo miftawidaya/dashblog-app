@@ -1,7 +1,7 @@
 // src/components/home/MostLikedPostList.tsx
 import React from 'react';
 import { useMostLikedPosts } from '@/utils/hooks/usePosts';
-import { PostCard } from '@/components/common/PostCard';
+import { PostCard } from '@/components/common/posts/PostCard';
 import { Skeleton } from '../ui/skeleton';
 import { API_BASE_URL } from '@/utils/apis/axios-with-config';
 import { useAuthors } from '@/utils/hooks/useAuthors';

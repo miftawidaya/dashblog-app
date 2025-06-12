@@ -1,16 +1,16 @@
 import { useParams } from 'react-router-dom';
 import { usePostDetail } from '@/utils/hooks/usePosts';
 import { Skeleton } from '@/components/ui/skeleton';
-import PostInteractions from '@/components/common/PostInteractions';
-import PostAuthor from '@/components/common/PostAuthor';
-import PostTag from '@/components/common/PostTag';
+import PostInteractions from '@/components/common/posts/PostInteractions';
+import PostAuthor from '@/components/common/posts/PostAuthor';
+import PostTag from '@/components/common/posts/PostTag';
 import { Separator } from '@radix-ui/react-separator';
 import { API_BASE_URL } from '@/utils/apis/axios-with-config';
 import { useUser } from '@/utils/hooks/useUser';
 import CommentSection from '@/components/common/comments/CommentSection';
 import { useRecommendedPosts } from '@/utils/hooks/usePosts';
 import { useAuthors } from '@/utils/hooks/useAuthors';
-import { PostCard } from '@/components/common/PostCard';
+import { PostCard } from '@/components/common/posts/PostCard';
 
 const PostDetailPage = () => {
   const { id } = useParams<{ id: string }>();

@@ -5,12 +5,10 @@ import Footer from './Footer';
 
 export default function DashboardLayout() {
   return (
-    <div className='flex min-h-screen flex-col'>
-      <header className='fixed top-0 z-50 w-full border-b border-neutral-300 bg-white'>
-        <DashboardNavbar />
-      </header>
+    <div className='flex min-h-screen flex-col pt-15 md:pt-20'>
+      <DashboardNavbar />
 
-      <main className='custom-container mx-auto flex-grow p-4'>
+      <main className='custom-container mx-auto flex-grow py-12'>
         <Outlet />
       </main>
 
