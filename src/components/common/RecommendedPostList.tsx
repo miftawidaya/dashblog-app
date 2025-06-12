@@ -37,13 +37,13 @@ export const RecommendedPostList: React.FC = () => {
       for (let i = 1; i <= totalPages; i++) pages.push(i);
     } else {
       if (page <= 3) {
-        // Halaman awal: 1, 2, 3, ..., total
+        // First page: 1, 2, 3, ..., total
         pages.push(1, 2, 3, '...', totalPages);
       } else if (page >= totalPages - 2) {
-        // Halaman akhir: 1, ..., total-2, total-1, total
+        // Last page: 1, ..., total-2, total-1, total
         pages.push(1, '...', totalPages - 2, totalPages - 1, totalPages);
       } else {
-        // Tengah: 1, ..., page-1, page, page+1, ..., total
+        // Middle page: 1, ..., page-1, page, page+1, ..., total
         pages.push(1, '...', page - 1, page, page + 1, '...', totalPages);
       }
     }
